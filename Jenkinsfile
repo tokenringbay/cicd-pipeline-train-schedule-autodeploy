@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         //be sure to replace "willbla" with your own Docker Hub username
-        DOCKER_IMAGE_NAME = "willbla/train-schedule"
+        DOCKER_IMAGE_NAME = "tkoulech/train-schedule"
         CANARY_REPLICAS = 0
     }
     stages {
@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             when {
-                branch 'master'
+                branch 'example-solution'
             }
             steps {
                 script {
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             when {
-                branch 'master'
+                branch 'example-solution'
             }
             steps {
                 script {
@@ -41,7 +41,7 @@ pipeline {
         }
         stage('CanaryDeploy') {
             when {
-                branch 'master'
+                branch 'example-solution'
             }
             environment { 
                 CANARY_REPLICAS = 1
@@ -56,7 +56,7 @@ pipeline {
         }
         stage('SmokeTest') {
             when {
-                branch 'master'
+                branch 'example-solution'
             }
             steps {
                 script {
@@ -73,7 +73,7 @@ pipeline {
         }
         stage('DeployToProduction') {
             when {
-                branch 'master'
+                branch 'mexample-solution'
             }
             steps {
                 milestone(1)
